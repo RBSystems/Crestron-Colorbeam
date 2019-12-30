@@ -1,0 +1,40 @@
+#SYMBOL_NAME "Colorbeam Keypad Driver"
+
+#INCLUDEPATH "..\\Colorbeam\\bin\\Debug"
+#USER_SIMPLSHARP_LIBRARY "Colorbeam"
+
+Digital_Input _skip_, Button[99];
+Digital_Output _skip_, Button_fb[99];
+
+
+CbKeypadSimpl myKp;
+
+integer_parameter ProcessorNumber, IntegrationId;
+
+Push Button
+{
+    integer i;
+    i = GetLastModifiedArrayIndex();
+    myKp.ButtonPress(i);
+}
+Release Button
+{
+    integer i;
+    i = GetLastModifiedArrayIndex();
+    myKp.ButtonRelease(i);
+}
+
+
+Callback Function onButtonStateChange(integer _button, integer _state)
+{
+    if (_button <= 99 && _button > 0)
+    {
+        Button_fb[_button] = _state;
+    } 
+}
+
+Function Main()
+{              
+    RegisterDelegate(myKp, newButtonStateChange, onButtonStateChange);
+    myKp.Initialize(ProcessorNumber, IntegrationId);        
+}

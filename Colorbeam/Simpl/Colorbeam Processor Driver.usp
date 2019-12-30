@@ -1,0 +1,46 @@
+#SYMBOL_NAME "Colorbeam Processor Driver"
+
+#INCLUDEPATH "..\\Colorbeam\\bin\\Debug"
+#USER_SIMPLSHARP_LIBRARY "Colorbeam"
+
+Digital_Input Initialize;
+
+Digital_Output IsInitialized, IsConnected;
+String_Parameter _skip_, _skip_,_skip_,_skip_,_skip_,_skip_,_skip_,_skip_,_skip_,_skip_, Host[100];
+Integer_Parameter ProcessorId, Port, DebugMode;
+
+CbProcessorSimpl myProc;
+
+integer waitTillStart;
+
+Push Initialize
+{                
+	while(!waitTillStart)
+	{}
+	myProc.SetDebug(DebugMode);
+    myProc.Initialize(ProcessorId, host, port);
+}
+
+Callback Function NewIsRegistered(integer value)
+{
+	if(value = 1)
+		IsInitialized = ON;
+	else
+		IsInitialized = OFF;
+}     
+
+Callback Function NewIsConnected(integer value)
+{
+	if(value = 1)
+		IsConnected = ON;
+	else
+		IsConnected = OFF;
+}
+
+Function Main()
+{
+	RegisterDelegate(myProc, onIsRegistered, NewIsRegistered);  
+	RegisterDelegate(myProc, onIsConnected, NewIsConnected);
+	WaitForInitializationComplete();
+	waitTillStart = 1;
+}

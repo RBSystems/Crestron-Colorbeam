@@ -1,0 +1,8 @@
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\bin\Debug\Colorbeam.dll
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\bin\Debug\Colorbeam.pdb
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\bin\Debug\SimplSharpHelperInterface.dll
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\bin\Debug\TCPClient.dll
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\obj\Debug\Colorbeam.dll
+C:\Users\WMS\Desktop\Git Projects\Crestron-Colorbeam\Colorbeam\Colorbeam\obj\Debug\Colorbeam.pdb
