@@ -40,35 +40,7 @@ namespace Colorbeam
 
             procId = _procId;
 
-            //this.SendDebug(string.Format("Added and initialized Panel ", _panelId));
-
-            //for (int i = 1; i <= 8; i++)
-            //{
-            //    if (!Areas.ContainsKey(i))
-            //    {
-            //        ElkArea a = new ElkArea();
-            //        a.Initialize(this, i);
-            //        Areas.Add(i, a);
-            //    }
-            //}
-            //for (int i = 1; i <= 208; i++)
-            //{
-            //    if (!Zones.ContainsKey(i))
-            //    {
-            //        ElkZone z = new ElkZone();
-            //        z.Initialize(this, i);
-            //        Zones.Add(i, z);
-            //    }
-            //}
-            //for (int i = 1; i <= 208; i++)
-            //{
-            //    if (!Outputs.ContainsKey(i))
-            //    {
-            //        ElkOutput o = new ElkOutput();
-            //        o.Initialize(this, i);
-            //        Outputs.Add(i, o);
-            //    }
-            //}
+            this.SendDebug(string.Format("Added and initialized Processor ", _procId));
 
             commandQueue = new CrestronQueue<string>();
             responseQueue = new CrestronQueue<string>();
@@ -102,7 +74,6 @@ namespace Colorbeam
 
         public void InitializePanelParameters()
         {
-            //this.Enqueue("as00"); //Arming status request
             this.isInitialized = true;
         }
 
@@ -256,7 +227,7 @@ namespace Colorbeam
                             if (sections.Length < 2)
                                 return;
                             level = int.Parse(sections[2]);
-                            Loads[lId].internalSetCurrentOutputLevels(eLoadType.SingleChannel, 0, 0, 0, 0, 0, level);
+                            Loads[lId].internalSetCurrentStatus(eLoadType.SingleChannel, 0, 0, 0, 0, 0, level);
                             break;
                         case 3: //variable white
                             if (sections.Length < 4)
@@ -264,7 +235,7 @@ namespace Colorbeam
                             ww = int.Parse(sections[2]);
                             cw = int.Parse(sections[3]);
                             level = int.Parse(sections[4]);
-                            Loads[lId].internalSetCurrentOutputLevels(eLoadType.VariableWhite, 0, 0, 0, ww, cw, level);
+                            Loads[lId].internalSetCurrentStatus(eLoadType.VariableWhite, 0, 0, 0, ww, cw, level);
                             break;
                         case 4: //RGB
                             if (sections.Length < 5)
@@ -273,7 +244,7 @@ namespace Colorbeam
                             g = int.Parse(sections[3]);
                             b = int.Parse(sections[4]);
                             level = int.Parse(sections[5]);
-                            Loads[lId].internalSetCurrentOutputLevels(eLoadType.RGB, r, g, b, 0, 0, level);
+                            Loads[lId].internalSetCurrentStatus(eLoadType.RGB, r, g, b, 0, 0, level);
                             break;
                         case 5: //RGBW
                             if (sections.Length < 6)
@@ -283,7 +254,7 @@ namespace Colorbeam
                             b = int.Parse(sections[4]);
                             cw = int.Parse(sections[5]);
                             level = int.Parse(sections[6]);
-                            Loads[lId].internalSetCurrentOutputLevels(eLoadType.RGBW, r, g, b, 0, cw, level);
+                            Loads[lId].internalSetCurrentStatus(eLoadType.RGBW, r, g, b, 0, cw, level);
                             break;
                     }
                 }

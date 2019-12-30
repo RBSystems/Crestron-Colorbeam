@@ -1,5 +1,7 @@
-﻿MainAssembly=Colorbeam.dll:1c4c778c9b01de1849a9167fed1a6adf
+﻿MainAssembly=Colorbeam.dll:2bec59039dc83d62d2896bb73aa84904
 MainAssemblyMinFirmwareVersion=1.007.0017
+MainAssemblyResource=SimplSharpData.dat:820b61c48c8a2cace82957eed4cc377c
+MainAssemblyResource=SimplSharpData.dat.der:bf862965c00f3e6ec535e4e00e82d30c
 MainAssemblyResource=SimplSharpData.dat:820b61c48c8a2cace82957eed4cc377c
 MainAssemblyResource=SimplSharpData.dat.der:bf862965c00f3e6ec535e4e00e82d30c
 ü

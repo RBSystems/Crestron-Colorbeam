@@ -46,6 +46,7 @@ namespace Colorbeam
         {
             checkIfButtonExists(_button);
             Buttons[_button] = _state;
+            myProc.SendDebug(string.Format("Keypad {0} - internalSetButtonStatus = Button:{1} State: {2}", integrationId, _button, _state));
             OnCbKeypadEvent(eCbKeypadEventUpdateType.ButtonStateChange, _button, _state);
         }
 
@@ -55,7 +56,8 @@ namespace Colorbeam
         {
             if (!Buttons.ContainsKey(_button))
             {
-                bool b = false;
+                bool b = new bool();
+                b = false;
                 Buttons.Add(_button, b);
             }
         }
