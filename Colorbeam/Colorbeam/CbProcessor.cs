@@ -48,7 +48,6 @@ namespace Colorbeam
 
             this.initRun = true;
         }
-
         public void InitialzeConnection(string _host, ushort _port)
         {
             this.procIp = _host;
@@ -71,10 +70,14 @@ namespace Colorbeam
                 this.client.Connect(this.procIp, (ushort)this.procPort);
             }
         }
-
         public void InitializePanelParameters()
         {
             this.isInitialized = true;
+
+            foreach (var item in SimplClients)
+            {
+                item.Value.Fire(new SimplEventArgs(eElkSimplEventIds.IsRegistered, "true", 1));
+            }
         }
 
 
@@ -154,10 +157,6 @@ namespace Colorbeam
                 }
                 CrestronEnvironment.Sleep(1500);
 
-                foreach (var item in SimplClients)
-                {
-                    item.Value.Fire(new SimplEventArgs(eElkSimplEventIds.IsRegistered, "true", 1));
-                }
                 this.InitializePanelParameters();
             }
             else if (isConnected && status != 2)
@@ -182,24 +181,26 @@ namespace Colorbeam
             if (returnString.Contains("B"))
             {
                 int bId = 0, bNum = 0;
-                if (returnString.Length == 8) //assuming 2 char id, 2 char button
+                if (returnString.Length == 7) //assuming 2 char id, 2 char button
                 {
                     bId = int.Parse(returnString.Substring(1, 2));
                     bNum = int.Parse(returnString.Substring(3, 2));
                 }
-                else if (returnString.Length == 9) //assuming 3 char id, 2 char button
+                else if (returnString.Length == 8) //assuming 3 char id, 2 char button
                 {
                     bId = int.Parse(returnString.Substring(1, 3));
                     bNum = int.Parse(returnString.Substring(4, 2));
                 }
-                else //assuming 3 char id, 3 char button
+                else if (returnString.Length == 9)//assuming 3 char id, 3 char button
                 {
                     bId = int.Parse(returnString.Substring(1, 3));
                     bNum = int.Parse(returnString.Substring(4, 3));
                 }
                 bool bSt = returnString.Contains("ON") ? true : false;
                 if (Keypads.ContainsKey(bId))
+                {
                     Keypads[bId].internalSetButtonStatus(bNum, bSt);
+                }
             }
 
             //Loads
@@ -215,7 +216,7 @@ namespace Colorbeam
                 if (sections.Length > 1)
                 {
                     int r = 0, g = 0, b = 0, ww = 0, cw = 0, level = 0;
-                    int lId = int.Parse(sections[0]);
+                    int lId = int.Parse(sections[0].Substring(1));
                     if (!Loads.ContainsKey(lId))
                         return;
                     switch (int.Parse(sections[1]))

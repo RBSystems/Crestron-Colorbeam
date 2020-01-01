@@ -14,7 +14,7 @@ namespace Colorbeam
         public static string progslot = ProgramID.Substring(ProgramID.Length - 2);
         //private bool isDisposed;
 
-        public static CbProcessor AddOrGetCoreObject(int _procId)
+        public static CbProcessor AddOrGetProcessorObject(int _procId)
         {
             try
             {

@@ -18,15 +18,24 @@ namespace Colorbeam
         //Init -------------------------------------------------------
         public void Initialize(ushort _procId, ushort _integrationId)
         {
-            myProc = CbCore.AddOrGetCoreObject(_procId);
+            myProc = CbCore.AddOrGetProcessorObject(_procId);
             if (myProc == null)
+            {
+                ErrorLog.Error("Keypad for processor {0} at ID {1} can't be initialized. Make sure processor module is initiated first.");
                 return;
+            }
 
             if (myProc.Keypads.ContainsKey((int)_integrationId))
             {
                 myKp = myProc.Keypads[(int)_integrationId];
-                myKp.CbKeypadEvent += new EventHandler<CbKeypadEventArgs>(myKp_CbKeypadEvent);
             }
+            else
+            {
+                myKp = new CbKeypad();
+                myKp.Initialize(myProc, _integrationId);
+                myProc.Keypads.Add(_integrationId, myKp);
+            }
+            myKp.CbKeypadEvent += new EventHandler<CbKeypadEventArgs>(myKp_CbKeypadEvent);
         }
 
         

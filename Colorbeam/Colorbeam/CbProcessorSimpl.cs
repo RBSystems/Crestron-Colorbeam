@@ -21,7 +21,7 @@ namespace Colorbeam
 
         public void Initialize(ushort _procId, SimplSharpString _host, ushort _port)
         {
-            myProc = CbCore.AddOrGetCoreObject(_procId);
+            myProc = CbCore.AddOrGetProcessorObject(_procId);
             if (myProc.getProcIp.Length == 0)
             {
                 myProc.SetDebug(debug);

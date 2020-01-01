@@ -1,17 +1,64 @@
-#SYMBOL_NAME "Colorbeam Keypad Driver"
+#SYMBOL_NAME "Colorbeam Load Driver"
 
 #INCLUDEPATH "..\\Colorbeam\\bin\\Debug"
 #USER_SIMPLSHARP_LIBRARY "Colorbeam"
 
-digital_output _skip_, Load_Type_fb[4];
-Analog_Input _skip_, Red, Green, Blue, WarmWhite, CoolWhite, Level;
+digital_input _skip_, Subscribe, _skip_, Send;
+
+digital_output _skip_, Fade_Completion_fb, _skip_, Load_Type_fb[4];
+Analog_Input _skip_, Red, Green, Blue, WarmWhite, CoolWhite, Level, _skip_ ,Fade_Time;
 analog_output _skip_, Red_fb, Green_fb, Blue_fb, WarmWhite_fb, CoolWhite_fb, Level_fb;
 
 CbLoadSimpl myLoad;
 
 integer_parameter ProcessorNumber, IntegrationId;
 
+push Subscribe
+{
+    myLoad.SetSubscribe(Subscribe);
+}
+release Subscribe
+{
+    myLoad.SetSubscribe(Subscribe);
+}
+push Send
+{
+    myLoad.SetSendEnable(Send);
+}
+release Send
+{
+    myLoad.SetSendEnable(Send);
+}
 
+
+change Red
+{
+    myLoad.SetChannelR(Red);
+}
+change Green
+{
+    myLoad.SetChannelG(Green);
+}
+change Blue
+{
+    myLoad.SetChannelB(Blue);
+}
+change WarmWhite
+{
+    myLoad.SetChannelWW(WarmWhite);
+}
+change CoolWhite
+{
+    myLoad.SetChannelCW(CoolWhite);
+}
+change Level
+{
+    myLoad.SetChannelL(Level);
+}
+change Fade_Time
+{
+    myLoad.SetFade(Fade_Time);
+}
 
 Callback Function onLoadTypeChange(integer _loadType)
 {
@@ -31,10 +78,18 @@ Callback Function onLoadLevelChange(integer _r, integer _g, integer _b, integer 
     CoolWhite_fb = _cw;
     Level_fb = _level;
 }
+Callback Function onFadeCompletionChange()
+{
+    pulse(200, Fade_Completion_fb);
+}
 
 Function Main()
 {              
     RegisterDelegate(myLoad, newLoadTypeChange, onLoadTypeChange);
     RegisterDelegate(myLoad, newLoadLevelChange, onLoadLevelChange);
-    myLoad.Initialize(ProcessorNumber, IntegrationId);        
+    RegisterDelegate(myLoad, newFadeCompletionChange, onFadeCompletionChange);
+    myLoad.Initialize(ProcessorNumber, IntegrationId);
+    myLoad.SetSubscribe(Subscribe); 
+    myLoad.SetSendEnable(Send);
+    myLoad.SetFade(Fade_Time);
 }
