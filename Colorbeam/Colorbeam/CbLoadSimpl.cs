@@ -46,13 +46,6 @@ namespace Colorbeam
         }
 
         //Public Functions -------------------------------------------------------
-        public void SetSubscribe(ushort _state)
-        {
-            if (_state == 1)
-                myLoad.SetSubscribe(true);
-            else
-                myLoad.SetSubscribe(false);
-        }
         public void SetChannelR(ushort _r)
         {
             r = _r;

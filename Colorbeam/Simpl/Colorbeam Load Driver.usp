@@ -1,9 +1,10 @@
 #SYMBOL_NAME "Colorbeam Load Driver"
 
 #INCLUDEPATH "..\\Colorbeam\\bin\\Debug"
+#CATEGORY "0" //Hidden
 #USER_SIMPLSHARP_LIBRARY "Colorbeam"
 
-digital_input _skip_, Subscribe, _skip_, Send;
+digital_input _skip_, _skip_, Send;
 
 digital_output _skip_, Fade_Completion_fb, _skip_, Load_Type_fb[4];
 Analog_Input _skip_, Red, Green, Blue, WarmWhite, CoolWhite, Level, _skip_ ,Fade_Time;
@@ -13,14 +14,6 @@ CbLoadSimpl myLoad;
 
 integer_parameter ProcessorNumber, IntegrationId;
 
-push Subscribe
-{
-    myLoad.SetSubscribe(Subscribe);
-}
-release Subscribe
-{
-    myLoad.SetSubscribe(Subscribe);
-}
 push Send
 {
     myLoad.SetSendEnable(Send);
@@ -88,8 +81,7 @@ Function Main()
     RegisterDelegate(myLoad, newLoadTypeChange, onLoadTypeChange);
     RegisterDelegate(myLoad, newLoadLevelChange, onLoadLevelChange);
     RegisterDelegate(myLoad, newFadeCompletionChange, onFadeCompletionChange);
-    myLoad.Initialize(ProcessorNumber, IntegrationId);
-    myLoad.SetSubscribe(Subscribe); 
+    myLoad.Initialize(ProcessorNumber, IntegrationId); 
     myLoad.SetSendEnable(Send);
     myLoad.SetFade(Fade_Time);
 }

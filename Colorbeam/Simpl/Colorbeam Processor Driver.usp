@@ -1,6 +1,7 @@
 #SYMBOL_NAME "Colorbeam Processor Driver"
 
 #INCLUDEPATH "..\\Colorbeam\\bin\\Debug"
+#CATEGORY "0" //Hidden
 #USER_SIMPLSHARP_LIBRARY "Colorbeam"
 
 Digital_Input Initialize;

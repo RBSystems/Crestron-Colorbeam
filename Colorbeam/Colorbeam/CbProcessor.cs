@@ -72,6 +72,16 @@ namespace Colorbeam
         }
         public void InitializePanelParameters()
         {
+            //Get status of all keypads
+            Enqueue("GETKP");
+
+            //Get status of all loads
+            foreach (var l in Loads)
+            {
+                Enqueue(string.Format("GET-{0:00}",l.Key));
+            }
+
+
             this.isInitialized = true;
 
             foreach (var item in SimplClients)

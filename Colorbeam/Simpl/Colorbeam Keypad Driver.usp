@@ -1,6 +1,7 @@
 #SYMBOL_NAME "Colorbeam Keypad Driver"
 
 #INCLUDEPATH "..\\Colorbeam\\bin\\Debug"
+#CATEGORY "0" //Hidden
 #USER_SIMPLSHARP_LIBRARY "Colorbeam"
 
 Digital_Input _skip_, Button[99];

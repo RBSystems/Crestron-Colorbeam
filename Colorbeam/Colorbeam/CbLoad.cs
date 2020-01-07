@@ -15,9 +15,6 @@ namespace Colorbeam
         private int fadeTime = 0;
         private eLoadType loadType = new eLoadType();
 
-        private bool subscribe;
-        private CTimer subscribeTimer;
-
         private CbProcessor myProc;
 
 
@@ -30,26 +27,6 @@ namespace Colorbeam
 
 
         //Public Functions -------------------------------------------------------
-        public void SetSubscribe(bool _state)
-        {
-            myProc.SendDebug(string.Format("Load {0} - SetSubscribe = {1}", integrationId, _state));
-            subscribe = _state;
-            if (subscribe)
-            {
-                if (this.subscribeTimer == null)
-                    this.subscribeTimer = new CTimer(subscribeTimerEvent, 5000);
-                else
-                    this.subscribeTimer.Reset(5000);
-
-                string cmdStr = string.Format("SUB-{0:00}", integrationId);
-                myProc.Enqueue(cmdStr);
-            }
-            else
-            {
-                if (this.subscribeTimer != null)
-                    this.subscribeTimer.Stop();
-            }
-        }
         public void SendLevelChange(int _level)
         {
             string cmdStr = "";
@@ -141,16 +118,6 @@ namespace Colorbeam
 
 
         //Private internal -------------------------------------------------------
-        private void subscribeTimerEvent(object o)
-        {
-            if (subscribe)
-            {
-                string cmdStr = string.Format("SUB-{0:00}", integrationId);
-                myProc.SendDebug(string.Format("Load {0} - subscribeTimerEvent = {1}", integrationId, cmdStr));
-                myProc.Enqueue(cmdStr);
-                this.subscribeTimer.Reset(5000);
-            }
-        }
 
 
 
